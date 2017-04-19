@@ -1,0 +1,119 @@
+#ifndef _CUST_BAT_H_
+#define _CUST_BAT_H_
+
+/* stop charging while in talking mode */
+#define STOP_CHARGING_IN_TAKLING
+#define TALKING_RECHARGE_VOLTAGE 3800
+#define TALKING_SYNC_TIME		   60
+
+/* Battery Temperature Protection */
+//[BUGFIX]-Mod-BEGIN by SCDTABLET.zhengding.chen@tcl.com,02/16/2016,PR-1590118
+//modify NTC and bms 
+//[BUGFIX]-Mod-BEGIN by SCDTABLET.jinghuang@tcl.com,12/25/2015,1239945
+//add ntc debug function,add  temperature algorithm ,modify battery tmperature protection according to TCL standard
+
+#define MTK_TEMPERATURE_RECHARGE_SUPPORT
+#define MAX_CHARGE_TEMPERATURE  53  //stop charge hight temprature
+#define MAX_CHARGE_TEMPERATURE_MINUS_X_DEGREE	50   //restore high tempretur charge current I < 0.3c
+#define MAX_CHARGE_TEMPERATURE_LOW_CURRENT 41 // high temperture charge cuurent I < 0.3C
+#define MIN_CHARGE_TEMPERATURE  2	//stop charge low temprature
+#define MIN_CHARGE_TEMPERATURE_PLUS_X_DEGREE	4	//restore low tempretur charge 
+#define ERR_CHARGE_TEMPERATURE  0xFF
+//[BUGFIX]-Mod-END by SCDTABLET.jinghuang@tcl.com
+//[BUGFIX]-Mod-END by SCDTABLET.zhengding.chen@tcl.com,02/16/2016,PR-1590118
+
+//[BUGFIX]-Mod-BEGIN by SCDTABLET.jinghuang@tcl.com,12/30/2015,1275606
+//BATTERY Notify for NTC
+#define MAX_RAISING_CHARGE_TEMPERATURE          58 //58 Fixed to 56 degree for according to TCL standard
+#define MIN_DROPPING_CHARGE_TEMPERATURE        -18 //-18 Fixed to -16 degree for according to TCL standard
+//[BUGFIX]-Mod-END by SCDTABLET.jinghuang@tcl.com
+
+/* Linear Charging Threshold */
+#define V_PRE2CC_THRES	3400	/*mV*/
+#define V_CC2TOPOFF_THRES	4050
+#define RECHARGING_VOLTAGE	4230
+
+//[BUGFIX]-Mod-BEGIN by SCDTABLET.zhengding.chen@tcl.com,02/16/2016,PR-1590118
+//modify NTC and bms
+#define CHARGING_FULL_CURRENT	200	/*mA*/
+//[BUGFIX]-Mod-END by SCDTABLET.zhengding.chen@tcl.com,02/16/2016,PR-1590118
+
+/* Charging Current Setting */
+/*#define CONFIG_USB_IF */
+#define USB_CHARGER_CURRENT_SUSPEND			0		/* def CONFIG_USB_IF*/
+#define USB_CHARGER_CURRENT_UNCONFIGURED	CHARGE_CURRENT_70_00_MA	/* 70mA*/
+#define USB_CHARGER_CURRENT_CONFIGURED	CHARGE_CURRENT_500_00_MA	/* 500mA*/
+
+#define USB_CHARGER_CURRENT	CHARGE_CURRENT_500_00_MA	/*500mA*/
+/*#define AC_CHARGER_CURRENT					CHARGE_CURRENT_650_00_MA*/
+#define AC_CHARGER_CURRENT	CHARGE_CURRENT_1000_00_MA
+#define NON_STD_AC_CHARGER_CURRENT	CHARGE_CURRENT_500_00_MA
+#define CHARGING_HOST_CHARGER_CURRENT	CHARGE_CURRENT_650_00_MA
+#define APPLE_0_5A_CHARGER_CURRENT	CHARGE_CURRENT_500_00_MA
+#define APPLE_1_0A_CHARGER_CURRENT	CHARGE_CURRENT_650_00_MA
+#define APPLE_2_1A_CHARGER_CURRENT	CHARGE_CURRENT_800_00_MA
+
+
+/* Precise Tunning */
+#define BATTERY_AVERAGE_DATA_NUMBER	3
+#define BATTERY_AVERAGE_SIZE	30
+
+/* charger error check */
+//[BUGFIX]-Mod-BEGIN by SCDTABLET.jinghuang@tcl.com,12/30/2015,1275606
+//BATTERY Notify for NTC
+#define BAT_LOW_TEMP_PROTECT_ENABLE         // stop charging if temp < MIN_CHARGE_TEMPERATURE*/
+//[BUGFIX]-Mod-END by SCDTABLET.jinghuang@tcl.com
+
+#define V_CHARGER_ENABLE	0	/* 1:ON , 0:OFF	*/
+#define V_CHARGER_MAX	6500	/* 6.5 V*/
+#define V_CHARGER_MIN	4400	/* 4.4 V*/
+
+/* Tracking TIME */
+#define ONEHUNDRED_PERCENT_TRACKING_TIME	10	/* 10 second*/
+#define NPERCENT_TRACKING_TIME	20	/* 20 second*/
+#define SYNC_TO_REAL_TRACKING_TIME	60	/* 60 second*/
+#define V_0PERCENT_TRACKING	3450	/*3450mV*/
+
+/* Battery Notify */
+#define BATTERY_NOTIFY_CASE_0001_VCHARGER
+#define BATTERY_NOTIFY_CASE_0002_VBATTEMP
+/*#define BATTERY_NOTIFY_CASE_0003_ICHARGING*/
+/*#define BATTERY_NOTIFY_CASE_0004_VBAT*/
+/*#define BATTERY_NOTIFY_CASE_0005_TOTAL_CHARGINGTIME*/
+
+/* JEITA parameter */
+/*#define MTK_JEITA_STANDARD_SUPPORT*/
+#define CUST_SOC_JEITA_SYNC_TIME	30
+#define JEITA_RECHARGE_VOLTAGE	4110	/* for linear charging*/
+#define JEITA_TEMP_ABOVE_POS_60_CV_VOLTAGE	BATTERY_VOLT_04_100000_V
+#define JEITA_TEMP_POS_45_TO_POS_60_CV_VOLTAGE	BATTERY_VOLT_04_100000_V
+#define JEITA_TEMP_POS_10_TO_POS_45_CV_VOLTAGE	BATTERY_VOLT_04_200000_V
+#define JEITA_TEMP_POS_0_TO_POS_10_CV_VOLTAGE	BATTERY_VOLT_04_100000_V
+#define JEITA_TEMP_NEG_10_TO_POS_0_CV_VOLTAGE	BATTERY_VOLT_03_900000_V
+#define JEITA_TEMP_BELOW_NEG_10_CV_VOLTAGE	BATTERY_VOLT_03_900000_V
+
+/* For JEITA Linear Charging only */
+#define JEITA_NEG_10_TO_POS_0_FULL_CURRENT	120	/*mA */
+#define JEITA_TEMP_POS_45_TO_POS_60_RECHARGE_VOLTAGE	4000
+#define JEITA_TEMP_POS_10_TO_POS_45_RECHARGE_VOLTAGE	4100
+#define JEITA_TEMP_POS_0_TO_POS_10_RECHARGE_VOLTAGE	4000
+#define JEITA_TEMP_NEG_10_TO_POS_0_RECHARGE_VOLTAGE	3800
+#define JEITA_TEMP_POS_45_TO_POS_60_CC2TOPOFF_THRESHOLD	4050
+#define JEITA_TEMP_POS_10_TO_POS_45_CC2TOPOFF_THRESHOLD	4050
+#define JEITA_TEMP_POS_0_TO_POS_10_CC2TOPOFF_THRESHOLD	4050
+#define JEITA_TEMP_NEG_10_TO_POS_0_CC2TOPOFF_THRESHOLD	3850
+
+/*[FEATURE]-MOD-BEGIN by huichen@tcl.com, 2015/12/08 pr 1065382 */
+/* High battery support */
+#define HIGH_BATTERY_VOLTAGE_SUPPORT
+/*[FEATURE]-MOD-END by huichen@tcl.com */
+/* Disable Battery check for HQA */
+#ifdef CONFIG_MTK_DISABLE_POWER_ON_OFF_VOLTAGE_LIMITATION
+#define CONFIG_DIS_CHECK_BATTERY
+#endif
+
+#ifdef CONFIG_MTK_FAN5405_SUPPORT
+#define FAN5405_BUSNUM 1
+#endif
+
+#endif
